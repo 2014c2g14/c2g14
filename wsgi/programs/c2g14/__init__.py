@@ -10,20 +10,22 @@ class C2G14(object):
 <!-- 這裡採用相對連結, 而非網址的絕對連結 (這一段為 html 註解) -->
 <a href="fillpoly">c2g14 fillpoly 繪圖</a><br />
 <a href="drawline">c2g14 drawline 繪圖</a><br />
-<a href="drawsquare">c2g14 drawsquare 繪圖</a><br />
+<a href="drawsquare">c2g14drawsquare 繪圖</a><br />
 <a href="drawstar">c2g14 drawstar 繪圖</a><br />
-<a href="drawtriangle2">c2g14drawtriangle2繪圖</a><br />
+<a href=" triangle">c2g14 triangle 繪圖</a><br />
+<a href=" triangle2">c2g14 triangle2 繪圖</a><br />
+<a href=" Japan">c2g14 Japan 繪圖</a><br />
 '''
         return outstring
 
-    # 以下為 c2g14組所建立的 CherryPy 程式方法, 這裡的 fillpoly 利用 Brython 執行網際繪圖
+    # 以下為 c2g14 組所建立的 CherryPy 程式方法, 這裡的 fillpoly 利用 Brython 執行網際繪圖
     ''' 
     假如採用下列規畫
     
     import programs.c2g14 as c2g14
     root.c2g14 = c2g14.C2G14()
     
-    則程式啟動後, 可以利用 /c2g14/fillpoly 呼叫函式執行
+    則程式啟動後, 可以利用 /c2g9/fillpoly 呼叫函式執行
     '''
     @cherrypy.expose
     def fillpoly(self, *args, **kwargs):
@@ -95,45 +97,11 @@ class C2G14(object):
     ''' 
     假如採用下列規畫
     
-    import programs.c2g2 as c2g2
-    root.c2g2 = c2g2.C2G2()
+    import programs.c2g14 as c2g14
+    root.c2g14 = c2g9.C2G14()
     
-    則程式啟動後, 可以利用 /c2g1/drawline 呼叫函式執行
+    則程式啟動後, 可以利用 /c2g14/drawline 呼叫函式執行
     '''
-    @cherrypy.expose
-    def drawline(self, *args, **kwargs):
-        outstring = '''
-    <!DOCTYPE html> 
-    <html>
-    <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8">
-    <script type="text/javascript" src="/static/Brython2.1.0-20140419-113919/brython.js"></script>
-    </head>
-    <body onload="brython({debug:1, cache:'version'})">
-    <canvas id="plotarea" width="800" height="800"></canvas>
-    <script type="text/python">
-    # 導入 doc
-    from browser import doc
-
-    # 準備繪圖畫布
-    canvas = doc["plotarea"]
-    ctx = canvas.getContext("2d")
-
-    # 定義畫線函式
-    def draw_line(x1, y1, x2, y2, linethick = 3, color = "black"):
-        ctx.beginPath()
-        ctx.lineWidth = linethick
-        ctx.moveTo(x1, y1)
-        ctx.lineTo(x2, y2)
-        ctx.strokeStyle = color
-        ctx.stroke()
-
-    draw_line(0, 0, 100, 100)
-    </script>
-    </body>
-    </html>
-    '''
-        return outstring
     @cherrypy.expose
     def drawsquare(self, *args, **kwargs):
         outstring = '''
@@ -152,10 +120,7 @@ class C2G14(object):
     # 準備繪圖畫布
     canvas = doc["plotarea"]
     ctx = canvas.getContext("2d")
-    
-    # 進行座標轉換, x 軸不變, y 軸反向且移動 800 光點
-    ctx.setTransform(1, 0, 0, -1, 0, 800)
-    
+
     # 定義畫線函式
     def draw_line(x1, y1, x2, y2, linethick = 3, color = "black"):
         ctx.beginPath()
@@ -165,14 +130,15 @@ class C2G14(object):
         ctx.strokeStyle = color
         ctx.stroke()
 
-    draw_line(300,300, 500,300)
-    draw_line(500, 300, 500, 500)
-    draw_line(500, 500, 300, 500)
-    draw_line(300, 500, 300, 300)
+    draw_line(0, 0, 0, 100)
+    draw_line(0, 100, 100, 100)
+    draw_line(100, 100, 100, 0)
+    draw_line(100, 0, 0 , 0)
     </script>
     </body>
     </html>
     '''
+    
         return outstring
         
     @cherrypy.expose
@@ -221,8 +187,9 @@ class C2G14(object):
     </html>
     '''
         return outstring
+        
     @cherrypy.expose
-    def triangle2(self, *args, **kwargs):
+    def  triangle(self, *args, **kwargs):
         outstring = '''
     <!DOCTYPE html> 
     <html>
@@ -243,7 +210,48 @@ class C2G14(object):
     # 進行座標轉換, x 軸不變, y 軸反向且移動 800 光點
     ctx.setTransform(1, 0, 0, -1, 0, 800)
     
-    # 定義畫線函式
+     # 定義畫線函式
+    def draw_line(x1, y1, x2, y2, linethick = 3, color = "black"):
+        ctx.beginPath()
+        ctx.lineWidth = linethick
+        ctx.moveTo(x1, y1)
+        ctx.lineTo(x2, y2)
+        ctx.strokeStyle = color
+        ctx.stroke()
+     
+    draw_line(100, 100, 150 , 250, linethick = 3, color="blue")
+    draw_line(150, 250 ,400 , 400, linethick = 3, color="blue")
+    draw_line(400, 400, 100 , 100, linethick = 3, color="blue" )
+
+    </script>
+    </body>
+    </html>
+    '''
+        return outstring
+        
+    @cherrypy.expose
+    def  triangle2(self, *args, **kwargs):
+        outstring = '''
+    <!DOCTYPE html> 
+    <html>
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <script type="text/javascript" src="/static/Brython2.1.0-20140419-113919/brython.js"></script>
+    </head>
+    <body onload="brython({debug:1, cache:'version'})">
+    <canvas id="plotarea" width="800" height="800"></canvas>
+    <script type="text/python">
+    # 導入 doc
+    from browser import doc
+
+    # 準備繪圖畫布
+    canvas = doc["plotarea"]
+    ctx = canvas.getContext("2d")
+    
+    # 進行座標轉換, x 軸不變, y 軸反向且移動 800 光點
+    ctx.setTransform(1, 0, 0, -1, 0, 800)
+    
+     # 定義畫線函式
     def draw_line(x1, y1, x2, y2, linethick = 3, color = "black"):
         ctx.beginPath()
         ctx.lineWidth = linethick
@@ -252,7 +260,7 @@ class C2G14(object):
         ctx.strokeStyle = color
         ctx.stroke()
 
-       def fill():
+    def fill():
         ctx.beginPath()
         ctx.moveTo(100,100)
         ctx.lineTo(150,250)
@@ -265,9 +273,58 @@ class C2G14(object):
     draw_line(100, 100, 150 , 250, linethick = 3, color="blue")
     draw_line(150, 250 ,400 , 400, linethick = 3, color="blue")
     draw_line(400, 400, 100 , 100, linethick = 3, color="blue" )
+
     </script>
     </body>
     </html>
     '''
         return outstring
-   
+    @cherrypy.expose
+    def Japan(self, *args, **kwargs):
+        '''
+        原始程式來源: http://blog.roodo.com/esabear/archives/19215194.html
+        改寫為 Brython 程式
+        '''
+        outstring = '''
+    <!DOCTYPE html> 
+    <html>
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <script type="text/javascript" src="/static/Brython2.1.0-20140419-113919/brython.js"></script>
+    </head>
+    <body onload="brython({debug:1, cache:'version'})">
+    <canvas id="plotarea" width="300" height="200"></canvas>
+    <script type="text/python">
+    # 導入 doc
+    from browser import doc
+    import math
+
+    # 準備繪圖畫布
+    canvas = doc["plotarea"]
+    ctx = canvas.getContext("2d")
+    # 進行座標轉換, x 軸不變, y 軸反向且移動 canvas.height 單位光點
+    # ctx.setTransform(1, 0, 0, -1, 0, canvas.height)
+    # 以下採用 canvas 原始座標繪圖
+    flag_w = canvas.width
+    flag_h = canvas.height
+    circle_x = flag_w/2
+    circle_y = flag_h/2
+    # 黑底
+    ctx.fillStyle='rgb(0, 0, 0)'
+    ctx.fillRect(0,0,flag_w,flag_h)
+    # 白底
+    ctx.fillStyle='rgb(255, 255, 255)'
+    ctx.fillRect(0,0,flag_w-5,flag_h-5)
+    # 紅日
+    ctx.beginPath()
+    ctx.arc(circle_x, circle_y, flag_w*17/240, 0, math.pi*2, true)
+    ctx.closePath()
+    # 填色設為白色
+    ctx.fillStyle = 'rgb(255, 0, 0)'
+    ctx.fill()
+    </script>
+    </body>
+    </html>
+    '''
+        return outstring
+  
